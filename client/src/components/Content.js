@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
-import Main from './Main'
-import SandBox from './SandBox'
+import Main from './pages/Main'
+import SandBox from './pages/SandBox'
 
 function Content() {
 	return (
