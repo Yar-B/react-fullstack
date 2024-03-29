@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Main from './pages/Main'
 import SandBox from './pages/SandBox'
+import CrudExample from './pages/CrudExample'
 
 function Content() {
 	return (
@@ -10,6 +11,7 @@ function Content() {
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/sandbox' element={<SandBox />} />
+						<Route path='/crud-example' element={<CrudExample />} />
 					</Routes>
 				</div>
 			</div>
