@@ -16,7 +16,7 @@ class ItemController {
 		res.json(item.rows[0])
 	}
 	async getItems(req, res) {
-		const items = await db.query('SELECT * FROM item')
+		const items = await db.query('SELECT * FROM item ORDER BY id')
 		res.json(items.rows)
 	}
 	async getOneItem(req, res) {
