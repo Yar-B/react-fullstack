@@ -5,11 +5,7 @@ class ItemController {
 		const { id, name, description } = req.body
 		let item
 		if (id) {
-			item = await db.query('UPDATE item set name = $1, description = $2 where id = $3 RETURNING *', [
-				name,
-				description,
-				id
-			])
+			item = await db.query(`UPDATE item set name = ${name}, description = ${description} where id = ${id} RETURNING *`)
 		} else {
 			item = await db.query('INSERT INTO item (name, description) values ($1, $2) RETURNING *', [name, description])
 		}
@@ -21,12 +17,12 @@ class ItemController {
 	}
 	async getOneItem(req, res) {
 		const id = req.params.id
-		const item = await db.query('SELECT * FROM item WHERE id = $1', [id])
+		const item = await db.query(`SELECT * FROM item WHERE id = ${id}`)
 		res.json(item.rows[0])
 	}
 	async deleteItem(req, res) {
 		const id = req.params.id
-		const item = await db.query('DELETE FROM item WHERE id = $1', [id])
+		const item = await db.query(`DELETE FROM item WHERE id = ${id}`)
 		res.json({ success: true })
 	}
 }
