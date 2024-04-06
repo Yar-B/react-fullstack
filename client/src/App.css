@@ -5,6 +5,43 @@
 	justify-content: space-between;
 }
 
+.login-page {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* animation: scroll 100s linear infinite;
+	background: url('./assets/cloud-pattern.png'); */
+}
+
+/* @keyframes scroll {
+	100% {
+		background-position: 4000px -0px;
+	}
+} */
+
+.login-form-wrapper {
+	height: fit-content;
+	padding: 40px;
+	border: 1px #80808066 solid;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #f7f7f7;
+}
+
+.auth-error-message {
+	width: 60%;
+	color: red;
+	background-color: #ff000030;
+	border-radius: 5px;
+	padding: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
 .header {
 	background-color: #a0c5cf;
 	width: 100%;
@@ -18,7 +55,7 @@
 .logo {
 	width: 55px;
 	height: 55px;
-	background-image: url('https://png.pngtree.com/png-vector/20220613/ourmid/pngtree-minimalist-design-of-a-whole-pear-icon-with-black-and-white-pattern-vector-png-image_31521668.png');
+	background-image: url('../public/logo.png');
 	background-size: cover;
 	margin-right: 30px;
 }
