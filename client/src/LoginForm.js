@@ -21,7 +21,7 @@ function LoginForm(props) {
 				if (form.getFieldsValue().passwordRepeat) {
 					const res = await authService.register(form.getFieldsValue())
 					if (res.success) {
-						props.setUserName(res.login)
+						props.setCurrentUserInfo(res.userInfo)
 						props.setIsLoggedIn()
 					} else {
 						setAuthErrorMessage('Такой логин уже есть!')
@@ -29,7 +29,7 @@ function LoginForm(props) {
 				} else {
 					const res = await authService.login(form.getFieldsValue())
 					if (res.success) {
-						props.setUserName(res.login)
+						props.setCurrentUserInfo(res.userInfo)
 						props.setIsLoggedIn()
 					} else {
 						setAuthErrorMessage('Не верные логин или пароль!')

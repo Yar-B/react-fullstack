@@ -28,7 +28,10 @@ function Header(props) {
 					</Link>
 				</div>
 				<div style={{ marginRight: 10 }}>
-					<span style={{ fontSize: '14px', marginRight: 15 }}>Привет, {props.userName}!</span>
+					<span style={{ fontSize: '14px', marginRight: 15 }}>
+						Привет, {props.currentUserInfo.login}!{' '}
+						{props.currentUserInfo.login === 'admin' ? 'Ты можешь все!💪😎' : 'Смотри и радуйся🌚'}
+					</span>
 					<Button size='small' onClick={logout} type='text'>
 						Выйти
 						<LogoutOutlined />
