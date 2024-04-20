@@ -91,7 +91,6 @@ class AuthController {
 	async logout(req, res) {
 		res.clearCookie('APP_SESSION')
 		res.json({ success: true })
-		res.send()
 	}
 }
 
