@@ -10,13 +10,13 @@ const authService = new AuthService()
 function AppContextProvider() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [loading, setLoading] = useState(false)
-	const [userName, setUserName] = useState('')
+	const [currentUserInfo, setCurrentUserInfo] = useState('')
 
 	function fetchData() {
 		setLoading(true)
-		authService.prolongSession().then(res => {
+		authService.checkSession().then(res => {
 			if (res.success) {
-				setUserName(res.login)
+				setCurrentUserInfo(res.userInfo)
 				setIsLoggedIn(true)
 			}
 			setLoading(false)
@@ -30,9 +30,9 @@ function AppContextProvider() {
 		<>
 			{!loading ? (
 				isLoggedIn ? (
-					<App userName={userName} />
+					<App currentUserInfo={currentUserInfo} />
 				) : (
-					<LoginForm setUserName={v => setUserName(v)} setIsLoggedIn={() => setIsLoggedIn(true)} />
+					<LoginForm setCurrentUserInfo={v => setCurrentUserInfo(v)} setIsLoggedIn={() => setIsLoggedIn(true)} />
 				)
 			) : (
 				<>

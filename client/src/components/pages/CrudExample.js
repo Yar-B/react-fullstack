@@ -22,7 +22,9 @@ const columns = [
 	}
 ]
 
-function CrudExample() {
+function CrudExample(props) {
+	const isUserAdmin = props.currentUserInfo.role === 'admin'
+
 	const [items, setItems] = useState([])
 	const [modalVisible, setModalVisible] = useState(false)
 	const [itemRecord, setItemRecord] = useState({})
@@ -66,9 +68,13 @@ function CrudExample() {
 	}, [])
 	return (
 		<>
-			<Button type='primary' onClick={() => showItem()}>
-				Добавить
-			</Button>
+			{isUserAdmin ? (
+				<Button type='primary' onClick={() => showItem()}>
+					Добавить
+				</Button>
+			) : (
+				<></>
+			)}
 			<Table
 				pagination={{ position: ['topRight'] }}
 				dataSource={items}
@@ -88,10 +94,12 @@ function CrudExample() {
 				onCancel={() => close()}
 				centered
 				footer={[
-					<Button type='primary' onClick={() => saveItem()} disabled={!itemRecord.name || !itemRecord.description}>
-						Сохранить
-					</Button>,
-					itemRecord.id ? (
+					isUserAdmin ? (
+						<Button type='primary' onClick={() => saveItem()} disabled={!itemRecord.name || !itemRecord.description}>
+							Сохранить
+						</Button>
+					) : null,
+					isUserAdmin && itemRecord.id ? (
 						<Button danger onClick={() => removeItem(itemRecord.id)}>
 							Удалить
 						</Button>
@@ -102,6 +110,7 @@ function CrudExample() {
 				<Form labelAlign='left' labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
 					<Form.Item label='Название'>
 						<Input
+							disabled={!isUserAdmin}
 							onChange={v =>
 								setItemRecord(prevState => {
 									return { ...prevState, name: v.target.value }
@@ -112,6 +121,7 @@ function CrudExample() {
 					</Form.Item>
 					<Form.Item label='Описание'>
 						<Input
+							disabled={!isUserAdmin}
 							onChange={v =>
 								setItemRecord(prevState => {
 									return { ...prevState, description: v.target.value }

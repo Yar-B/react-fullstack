@@ -2,8 +2,8 @@ import { ApiService } from './api.service'
 
 export class AuthService {
 	apiService = new ApiService()
-	prolongSession() {
-		return this.apiService.get('/prolongSession')
+	checkSession() {
+		return this.apiService.get('/checkSession')
 	}
 	login(userRecord) {
 		return this.apiService.post('/login', userRecord)

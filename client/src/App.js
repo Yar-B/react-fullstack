@@ -7,8 +7,8 @@ function App(props) {
 	return (
 		<>
 			<div className='app'>
-				<Header userName={props.userName} />
-				<Content />
+				<Header currentUserInfo={props.currentUserInfo} />
+				<Content currentUserInfo={props.currentUserInfo} />
 				<Footer />
 			</div>
 		</>

@@ -3,7 +3,7 @@ import Main from './pages/Main'
 import SandBox from './pages/SandBox'
 import CrudExample from './pages/CrudExample'
 
-function Content() {
+function Content(props) {
 	return (
 		<>
 			<div className='content-wrapper'>
@@ -11,7 +11,7 @@ function Content() {
 					<Routes>
 						<Route path='/' element={<Main />} />
 						<Route path='/sandbox' element={<SandBox />} />
-						<Route path='/crud-example' element={<CrudExample />} />
+						<Route path='/crud-example' element={<CrudExample currentUserInfo={props.currentUserInfo} />} />
 					</Routes>
 				</div>
 			</div>
