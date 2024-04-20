@@ -73,6 +73,7 @@ function CrudExample() {
 				pagination={{ position: ['topRight'] }}
 				dataSource={items}
 				columns={columns}
+				rowKey='id'
 				onRow={rec => {
 					return {
 						onClick: () => showItem(rec.id)

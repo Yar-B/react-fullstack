@@ -1,9 +1,13 @@
 import { Button, Form, Input } from 'antd'
 import { useState } from 'react'
+import { AuthService } from './services/auth.service'
 
 const validateMessages = {
-	required: 'Обязательное поле!'
+	required: 'Обязательное поле!',
+	string: { min: 'Минимум 8 символов!' }
 }
+
+const authService = new AuthService()
 
 function LoginForm(props) {
 	const [isLogin, setIsLogin] = useState(true)
@@ -13,14 +17,19 @@ function LoginForm(props) {
 	async function auth() {
 		form
 			.validateFields()
-			.then(() => {
+			.then(async () => {
 				if (form.getFieldsValue().passwordRepeat) {
-					console.log('Регистрация с данными:', form.getFieldsValue())
-					setAuthErrorMessage('Такой логин уже есть!')
+					const res = await authService.register(form.getFieldsValue())
+					if (res.success) {
+						props.setUserName(res.login)
+						props.setIsLoggedIn()
+					} else {
+						setAuthErrorMessage('Такой логин уже есть!')
+					}
 				} else {
-					console.log('Авторизация с данными:', form.getFieldsValue())
-					// временный костыль, демонстрирующий работу логина
-					if (form.getFieldsValue().login === 'admin' && form.getFieldsValue().password === '123') {
+					const res = await authService.login(form.getFieldsValue())
+					if (res.success) {
+						props.setUserName(res.login)
 						props.setIsLoggedIn()
 					} else {
 						setAuthErrorMessage('Не верные логин или пароль!')
@@ -74,7 +83,8 @@ function LoginForm(props) {
 							name='password'
 							rules={[
 								{
-									required: true
+									required: true,
+									min: 8
 								}
 							]}
 						>

@@ -5,7 +5,11 @@ class ItemController {
 		const { id, name, description } = req.body
 		let item
 		if (id) {
-			item = await db.query(`UPDATE item set name = ${name}, description = ${description} where id = ${id} RETURNING *`)
+			item = await db.query('UPDATE item set name = $1, description = $2 where id = $3 RETURNING *', [
+				name,
+				description,
+				id
+			])
 		} else {
 			item = await db.query('INSERT INTO item (name, description) values ($1, $2) RETURNING *', [name, description])
 		}

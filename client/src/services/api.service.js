@@ -2,7 +2,10 @@ export class ApiService {
 	#apiPath = 'http://localhost:3001/api'
 
 	#makeRequest(url, options) {
-		return fetch(this.#apiPath + url, options).then(res => res.json())
+		return fetch(this.#apiPath + url, {
+			...options,
+			credentials: 'include'
+		}).then(res => res.json())
 	}
 
 	get(url) {
