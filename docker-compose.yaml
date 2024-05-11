@@ -1,0 +1,59 @@
+version: '1.0'
+
+services:
+  server:
+    image: yarbar/backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - '3001:3001'
+    env_file: ./.env
+    environment:
+      - DB_HOST=postgresdb_server
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_DATABASE
+      - DB_PORT=$DB_PORT
+    depends_on:
+      - postgresdb
+
+  client:
+    image: yarbar/frontend
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - '80:80'
+    depends_on:
+      - server
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'placeholder@example.com'
+      PGADMIN_DEFAULT_PASSWORD: 'fakepassword123!'
+    ports:
+      - '16543:80'
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:16.2-alpine
+    restart: always
+    container_name: postgresdb_server
+    environment:
+      - POSTGRES_DB=$DB_DATABASE
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - mydata:/var/lib/postgresql/data
+
+volumes:
+  mydata:
+
