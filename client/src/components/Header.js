@@ -20,14 +20,14 @@ function Header(props) {
 					<Link className='header-link' to={'/'}>
 						Главная
 					</Link>
+					<Link className='header-link' to={'/chat'}>
+						Чат
+					</Link>
 					<Link className='header-link' to={'/sandbox'}>
 						Песочница
 					</Link>
 					<Link className='header-link' to={'/crud-example'}>
 						Простой CRUD
-					</Link>
-					<Link className='header-link' to={'/chat'}>
-						Чат
 					</Link>
 				</div>
 				<div style={{ marginRight: 10 }}>

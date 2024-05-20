@@ -2,11 +2,10 @@ function Main() {
 	return (
 		<>
 			<div className='main-page'>
-				<img src='https://www.ssau.ru/i/logo/logo-ru.svg' />
 				<div className='self-info-wrapper'>
-					<h2>Это веб-приложение на тему ... разработано</h2>
-					<h1>Иваном Ивановым</h1>
-					<h5>студент 3 курса направления МОАИС</h5>
+					<h2>Пока не придумал</h2>
+					<h1>что здесь написать</h1>
+					<h5>если есть идеи - готов выслушать</h5>
 				</div>
 			</div>
 		</>

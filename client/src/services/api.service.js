@@ -1,5 +1,5 @@
 export class ApiService {
-	#apiPath = 'http://localhost:3001/api'
+	#apiPath = document.location.protocol + '//' + document.location.hostname + ':3001/api'
 
 	#makeRequest(url, options) {
 		return fetch(this.#apiPath + url, {
