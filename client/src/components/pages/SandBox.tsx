@@ -1,5 +1,5 @@
-import { Button, Input, Select, Table } from 'antd'
-import { useState } from 'react'
+import { Button, Input, Select, Table } from 'antd';
+import { useState } from 'react';
 
 const dataSource = [
 	{
@@ -14,7 +14,7 @@ const dataSource = [
 		age: 42,
 		address: '10 Downing Street'
 	}
-]
+];
 
 const columns = [
 	{
@@ -32,30 +32,30 @@ const columns = [
 		dataIndex: 'address',
 		key: 'address'
 	}
-]
+];
 
-const optionsForSelector = [
+const optionsForSelector: Array<any> = [
 	{ value: 'moscow', label: 'Москва' },
 	{ value: 'samara', label: 'Самара' },
 	{ value: 'sochi', label: 'Сочи' },
 	{ value: 'secretCity', label: 'Секретный город', disabled: true }
-]
+];
 
 function SandBox() {
-	const [counter, setCounter] = useState(0)
-	const [city, setCity] = useState('moscow')
-	const [inputVal, setInputVal] = useState('')
+	const [counter, setCounter] = useState(0);
+	const [city, setCity] = useState('moscow');
+	const [inputVal, setInputVal] = useState('');
 
 	function onButtonClick() {
-		setCounter(counter + 1)
+		setCounter(counter + 1);
 	}
 
-	function onSelectorChange(value) {
-		setCity(value)
+	function onSelectorChange(value: string) {
+		setCity(value);
 	}
 
-	function onInputChange(event) {
-		setInputVal(event.target.value)
+	function onInputChange(event: any) {
+		setInputVal(event.target.value);
 	}
 
 	return (
@@ -82,8 +82,8 @@ function SandBox() {
 				<Table dataSource={dataSource} columns={columns} />
 			</div>
 		</>
-	)
+	);
 }
 
-export default SandBox
+export default SandBox;
 

@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service'
 
 const authService = new AuthService()
 
-function Header(props) {
+function Header(props: any) {
 	function logout() {
 		authService.logout().then(() => {
 			document.location.reload()

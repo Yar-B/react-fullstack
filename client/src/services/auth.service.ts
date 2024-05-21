@@ -5,10 +5,10 @@ export class AuthService {
 	checkSession() {
 		return this.apiService.get('/checkSession')
 	}
-	login(userRecord) {
+	login(userRecord: string) {
 		return this.apiService.post('/login', userRecord)
 	}
-	register(userRecord) {
+	register(userRecord: string) {
 		return this.apiService.post('/register', userRecord)
 	}
 	logout() {

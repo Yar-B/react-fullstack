@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import Main from './pages/Main'
-import SandBox from './pages/SandBox'
-import CrudExample from './pages/CrudExample'
-import Chat from './pages/Chat'
+import Main from './pages/Main.tsx'
+import SandBox from './pages/SandBox.tsx'
+import CrudExample from './pages/CrudExample.tsx'
+import Chat from './pages/Chat.tsx'
 
-function Content(props) {
+function Content(props: any) {
 	return (
 		<>
 			<div className='content-wrapper'>

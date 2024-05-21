@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd'
 import { useState } from 'react'
-import { AuthService } from './services/auth.service'
+import { AuthService } from './services/auth.service.ts'
 
 const validateMessages = {
 	required: 'Обязательное поле!',
@@ -9,7 +9,7 @@ const validateMessages = {
 
 const authService = new AuthService()
 
-function LoginForm(props) {
+function LoginForm(props: any) {
 	const [isLogin, setIsLogin] = useState(true)
 	const [authErrorMessage, setAuthErrorMessage] = useState('')
 	const [form] = Form.useForm()
@@ -47,7 +47,7 @@ function LoginForm(props) {
 		form.resetFields()
 	}
 
-	async function repeatPasswordFieldValidation(formRecord) {
+	async function repeatPasswordFieldValidation(formRecord: any) {
 		const passwordField = formRecord.getFieldValue('password')
 		const passwordRepeatField = formRecord.getFieldValue('passwordRepeat')
 		if (passwordRepeatField && passwordField !== passwordRepeatField) {

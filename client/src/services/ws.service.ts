@@ -1,5 +1,5 @@
 export class WebSocketService {
-	constructor(userInfo) {
+	constructor() {
 		this.socket = new WebSocket('ws://' + document.location.hostname + ':8999')
 		this.socket.addEventListener('open', () => {
 			this.socket.send(JSON.stringify({ action: 'GREETING', greet: 'Привет Server!' }))
@@ -31,9 +31,9 @@ export class WebSocketService {
 
 	socket
 
-	#sub = () => {}
+	#sub: Function = () => {}
 
-	subscribe(f) {
+	subscribe(f: Function) {
 		this.#sub = f
 	}
 }
