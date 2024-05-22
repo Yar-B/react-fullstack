@@ -1,57 +1,57 @@
-import { Button, Form, Input } from 'antd'
-import { useState } from 'react'
-import { AuthService } from './services/auth.service.ts'
+import { Button, Form, Input } from 'antd';
+import { useState } from 'react';
+import { AuthService } from './services/auth.service.ts';
 
 const validateMessages = {
 	required: 'Обязательное поле!',
 	string: { min: 'Минимум 8 символов!' }
-}
+};
 
-const authService = new AuthService()
+const authService = new AuthService();
 
 function LoginForm(props: any) {
-	const [isLogin, setIsLogin] = useState(true)
-	const [authErrorMessage, setAuthErrorMessage] = useState('')
-	const [form] = Form.useForm()
+	const [isLogin, setIsLogin] = useState(true);
+	const [authErrorMessage, setAuthErrorMessage] = useState('');
+	const [form] = Form.useForm();
 
 	async function auth() {
 		form
 			.validateFields()
 			.then(async () => {
 				if (form.getFieldsValue().passwordRepeat) {
-					const res = await authService.register(form.getFieldsValue())
+					const res = await authService.register(form.getFieldsValue());
 					if (res.success) {
-						props.setCurrentUserInfo(res.userInfo)
-						props.setIsLoggedIn()
+						props.setCurrentUserInfo(res.userInfo);
+						props.setIsLoggedIn();
 					} else {
-						setAuthErrorMessage('Такой логин уже есть!')
+						setAuthErrorMessage('Такой логин уже есть!');
 					}
 				} else {
-					const res = await authService.login(form.getFieldsValue())
+					const res = await authService.login(form.getFieldsValue());
 					if (res.success) {
-						props.setCurrentUserInfo(res.userInfo)
-						props.setIsLoggedIn()
+						props.setCurrentUserInfo(res.userInfo);
+						props.setIsLoggedIn();
 					} else {
-						setAuthErrorMessage('Не верные логин или пароль!')
+						setAuthErrorMessage('Не верные логин или пароль!');
 					}
 				}
 			})
 			.catch(err => {
-				console.log('error', err)
-			})
+				console.log('error', err);
+			});
 	}
 
 	function changeAuthType() {
-		setAuthErrorMessage('')
-		setIsLogin(!isLogin)
-		form.resetFields()
+		setAuthErrorMessage('');
+		setIsLogin(!isLogin);
+		form.resetFields();
 	}
 
 	async function repeatPasswordFieldValidation(formRecord: any) {
-		const passwordField = formRecord.getFieldValue('password')
-		const passwordRepeatField = formRecord.getFieldValue('passwordRepeat')
+		const passwordField = formRecord.getFieldValue('password');
+		const passwordRepeatField = formRecord.getFieldValue('passwordRepeat');
 		if (passwordRepeatField && passwordField !== passwordRepeatField) {
-			throw Error('Пароли не совпадают!')
+			throw Error('Пароли не совпадают!');
 		}
 	}
 
@@ -100,7 +100,7 @@ function LoginForm(props: any) {
 									},
 									form => ({
 										validator() {
-											return repeatPasswordFieldValidation(form)
+											return repeatPasswordFieldValidation(form);
 										}
 									})
 								]}
@@ -124,8 +124,8 @@ function LoginForm(props: any) {
 				</div>
 			</div>
 		</>
-	)
+	);
 }
 
-export default LoginForm
+export default LoginForm;
 

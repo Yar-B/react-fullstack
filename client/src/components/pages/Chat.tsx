@@ -2,15 +2,18 @@ import { Button, Input } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { WebSocketService } from '../../services/ws.service.ts';
 import { ChatService } from '../../services/chat.service.ts';
+import { UserRecord } from '../../records/user.record';
+import { WsMessageRecord } from '../../records/ws-message.record';
+import { getDate, getTime, isDatesDifferent } from '../../utils/date.util';
 
 const wsService = new WebSocketService();
 const chatService = new ChatService();
 
 function Sofa(props: any) {
-	const currentUserInfo = props.currentUserInfo;
+	const currentUserInfo: UserRecord = props.currentUserInfo;
 	const [loading, setLoading] = useState<boolean>(false);
 	const [msg, setMsg] = useState<string>('');
-	const [chatMsgs, setChatMsgs] = useState<any>([]);
+	const [chatMsgs, setChatMsgs] = useState<WsMessageRecord[]>([]);
 	const [isStartState, setStartState] = useState<boolean>(true);
 	const input = useRef<null | any>(null);
 	const chatWrapper = useRef<null | any>(null);
@@ -38,22 +41,17 @@ function Sofa(props: any) {
 		input.current.focus();
 	}
 
-	function addMsgFromAnotherUsers(msg: string) {
+	function addMsgFromAnotherUsers(msg: WsMessageRecord) {
 		setChatMsgs([...chatMsgs, msg]);
 	}
 
-	function getTime(dateStamp: number | string) {
-		const date = new Date(Number(dateStamp));
-		return date.getHours() + ':' + date.getMinutes();
-	}
-
-	wsService.subscribe((msg: any) => {
+	wsService.subscribe((msg: WsMessageRecord) => {
 		addMsgFromAnotherUsers(msg);
 	});
 
 	async function fetchData() {
 		setLoading(true);
-		const chat = await chatService.getChat(currentUserInfo.id);
+		const chat = await chatService.getChat(currentUserInfo.id.toString());
 		setChatMsgs(...[chat]);
 		input.current.input.addEventListener('keyup', (e: KeyboardEvent) => {
 			e.preventDefault();
@@ -80,15 +78,26 @@ function Sofa(props: any) {
 		<>
 			<div ref={chatWrapper} className='chat-area-wrapper'>
 				<div className='chat-area'>
-					{chatMsgs.map((msg: any, i: number) => {
+					{chatMsgs.map((msg: WsMessageRecord, i: number) => {
 						return (
-							<div key={i} className={msg.isCurrentUser ? 'current-user-message-wrapper' : 'message-wrapper'}>
-								<div className='message'>
-									<span className='msg-owner'>{msg.isCurrentUser ? '' : msg.user}</span>
-									<span className='msg-content'>{msg.content}</span>
-									<span className='msg-time'>{getTime(msg.time)}</span>
+							<div style={{ width: '100%' }} key={i}>
+								{isDatesDifferent(chatMsgs[i - 1]?.time, msg.time) ? (
+									<>
+										<div className='date-row'>
+											<span>{getDate(msg.time)}</span>
+										</div>
+									</>
+								) : (
+									<></>
+								)}
+								<div className={msg.isCurrentUser ? 'current-user-message-wrapper' : 'message-wrapper'}>
+									<div className='message'>
+										<span className='msg-owner'>{msg.isCurrentUser ? '' : msg.user}</span>
+										<span className='msg-content'>{msg.content}</span>
+										<span className='msg-time'>{getTime(msg.time)}</span>
+									</div>
+									<div ref={messagesEndRef} />
 								</div>
-								<div ref={messagesEndRef} />
 							</div>
 						);
 					})}

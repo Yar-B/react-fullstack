@@ -1,38 +1,42 @@
-import { Spin } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
-import LoginForm from './LoginForm'
-import App from './App'
-import { useEffect, useState } from 'react'
-import { AuthService } from './services/auth.service'
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import LoginForm from './LoginForm';
+import App from './App';
+import { useEffect, useState } from 'react';
+import { AuthService } from './services/auth.service';
+import { UserRecord } from './records/user.record';
 
-const authService = new AuthService()
+const authService = new AuthService();
 
 function AppContextProvider() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	const [loading, setLoading] = useState(false)
-	const [currentUserInfo, setCurrentUserInfo] = useState('')
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [currentUserInfo, setCurrentUserInfo] = useState<UserRecord>();
 
 	function fetchData() {
-		setLoading(true)
+		setLoading(true);
 		authService.checkSession().then(res => {
 			if (res.success) {
-				setCurrentUserInfo(res.userInfo)
-				setIsLoggedIn(true)
+				setCurrentUserInfo(res.userInfo);
+				setIsLoggedIn(true);
 			}
-			setLoading(false)
-		})
+			setLoading(false);
+		});
 	}
 
 	useEffect(() => {
-		fetchData()
-	}, [])
+		fetchData();
+	}, []);
 	return (
 		<>
 			{!loading ? (
 				isLoggedIn ? (
 					<App currentUserInfo={currentUserInfo} />
 				) : (
-					<LoginForm setCurrentUserInfo={v => setCurrentUserInfo(v)} setIsLoggedIn={() => setIsLoggedIn(true)} />
+					<LoginForm
+						setCurrentUserInfo={(v: UserRecord) => setCurrentUserInfo(v)}
+						setIsLoggedIn={() => setIsLoggedIn(true)}
+					/>
 				)
 			) : (
 				<>
@@ -43,8 +47,8 @@ function AppContextProvider() {
 				</>
 			)}
 		</>
-	)
+	);
 }
 
-export default AppContextProvider
+export default AppContextProvider;
 
