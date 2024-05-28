@@ -47,6 +47,11 @@ function SandBox() {
 	const [inputVal, setInputVal] = useState('');
 
 	function onButtonClick() {
+		document
+			.querySelector('meta[name="theme-color"]')!
+			.setAttribute('content', '#' + Math.floor(Math.random() * 0xffffff).toString(16));
+		console.log(getComputedStyle(document.body).getPropertyValue('--main-color'));
+		document.documentElement.style.setProperty('--main-color', '#' + Math.floor(Math.random() * 0xffffff).toString(16));
 		setCounter(counter + 1);
 	}
 

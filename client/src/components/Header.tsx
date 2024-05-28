@@ -1,15 +1,20 @@
-import { Button } from 'antd'
-import { LogoutOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
-import { AuthService } from '../services/auth.service'
+import { Button } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { Link, useLocation } from 'react-router-dom';
+import { AuthService } from '../services/auth.service';
+import { useEffect } from 'react';
 
-const authService = new AuthService()
+const authService = new AuthService();
 
 function Header(props: any) {
+	const location = useLocation();
+
+	useEffect(() => {}, [location]);
+
 	function logout() {
 		authService.logout().then(() => {
-			document.location.reload()
-		})
+			document.location.reload();
+		});
 	}
 
 	return (
@@ -17,23 +22,28 @@ function Header(props: any) {
 			<div className='header'>
 				<div className='header-nav'>
 					<div className='logo'></div>
-					<Link className='header-link' to={'/'}>
+					<Link className={'header-link' + (location.pathname === '/' ? ' selected-header-link' : '')} to={'/'}>
 						Главная
 					</Link>
-					<Link className='header-link' to={'/chat'}>
+					<Link className={'header-link' + (location.pathname === '/chat' ? ' selected-header-link' : '')} to={'/chat'}>
 						Чат
 					</Link>
-					<Link className='header-link' to={'/sandbox'}>
+					<Link
+						className={'header-link' + (location.pathname === '/sandbox' ? ' selected-header-link' : '')}
+						to={'/sandbox'}
+					>
 						Песочница
 					</Link>
-					<Link className='header-link' to={'/crud-example'}>
+					<Link
+						className={'header-link' + (location.pathname === '/crud-example' ? ' selected-header-link' : '')}
+						to={'/crud-example'}
+					>
 						Простой CRUD
 					</Link>
 				</div>
-				<div style={{ marginRight: 10 }}>
-					<span style={{ fontSize: '14px', marginRight: 15 }}>
-						Привет, {props.currentUserInfo.login}!
-						{props.currentUserInfo.role === 'admin' ? ' Ты можешь все!💪😎' : ' Смотри и радуйся🌚'}
+				<div style={{ marginRight: 10 }} className='header-right-part'>
+					<span>
+						Привет, {props.currentUserInfo.login}!{props.currentUserInfo.role === 'admin' ? ' Ты крут!😎' : ''}
 					</span>
 					<Button size='small' onClick={logout} type='text'>
 						Выйти
@@ -42,8 +52,8 @@ function Header(props: any) {
 				</div>
 			</div>
 		</>
-	)
+	);
 }
 
-export default Header
+export default Header;
 

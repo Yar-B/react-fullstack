@@ -23,7 +23,9 @@ export function getTime(dateStamp: number | string) {
 
 export function getDate(dateStamp: number | string) {
 	const date = new Date(Number(dateStamp));
-	return date.getDate() + ' ' + monthsStrings[date.getMonth() + 1][1] + ' ' + date.getFullYear();
+	return new Date().getFullYear() === date.getFullYear()
+		? date.getDate() + ' ' + monthsStrings[date.getMonth()][1]
+		: date.getDate() + ' ' + monthsStrings[date.getMonth()][1] + ' ' + date.getFullYear();
 }
 
 export function isDatesDifferent(prev: number, cur: number): boolean {

@@ -63,6 +63,14 @@ function Sofa(props: any) {
 		setLoading(false);
 	}
 
+	function inputInFocus() {
+		console.log('hide footer');
+	}
+
+	function inputInBlur() {
+		console.log('show footer');
+	}
+
 	useEffect(() => {
 		fetchData();
 	}, []);
@@ -106,9 +114,10 @@ function Sofa(props: any) {
 			<div className='chat-items'>
 				<Input
 					ref={input}
-					autoFocus
 					value={msg}
 					onChange={e => setMsg(e.target.value)}
+					onFocus={() => inputInFocus()}
+					onBlur={() => inputInBlur()}
 					style={{ marginRight: '20px' }}
 				/>
 				<Button id='sendButton' onClick={post} disabled={!msg.trim()}>

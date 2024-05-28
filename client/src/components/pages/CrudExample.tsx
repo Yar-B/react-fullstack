@@ -1,8 +1,8 @@
-import { Form, Button, Input, Table, Modal } from 'antd'
-import { ApiService } from '../../services/api.service'
-import { useEffect, useState } from 'react'
+import { Form, Button, Input, Table, Modal } from 'antd';
+import { ApiService } from '../../services/api.service';
+import { useEffect, useState } from 'react';
 
-const apiService = new ApiService()
+const apiService = new ApiService();
 
 const columns = [
 	{
@@ -20,52 +20,52 @@ const columns = [
 		dataIndex: 'description',
 		key: 'description'
 	}
-]
+];
 
 function CrudExample(props) {
-	const isUserAdmin = props.currentUserInfo.role === 'admin'
+	const isUserAdmin = props.currentUserInfo.role === 'admin';
 
-	const [items, setItems] = useState([])
-	const [modalVisible, setModalVisible] = useState(false)
-	const [itemRecord, setItemRecord] = useState({})
+	const [items, setItems] = useState([]);
+	const [modalVisible, setModalVisible] = useState(false);
+	const [itemRecord, setItemRecord] = useState({});
 
 	function showItem(recId) {
 		recId
 			? apiService.get('/item/' + recId).then(res => {
-					setItemRecord(res)
-					setModalVisible(true)
+					setItemRecord(res);
+					setModalVisible(true);
 			  })
-			: setModalVisible(true)
+			: setModalVisible(true);
 	}
 
 	function saveItem() {
 		apiService.post('/item', itemRecord).then(() => {
-			close()
-			fetchData()
-		})
+			close();
+			fetchData();
+		});
 	}
 
 	function removeItem(recId) {
 		apiService.delete('/item/' + recId).then(() => {
-			close()
-			fetchData()
-		})
+			close();
+			fetchData();
+		});
 	}
 
 	function close() {
-		setItemRecord({})
-		setModalVisible(false)
+		setItemRecord({});
+		setModalVisible(false);
 	}
 
 	function fetchData() {
 		apiService.get('/items').then(res => {
-			setItems(res)
-		})
+			setItems(res);
+		});
 	}
 
 	useEffect(() => {
-		fetchData()
-	}, [])
+		fetchData();
+	}, []);
 	return (
 		<>
 			{isUserAdmin ? (
@@ -83,7 +83,7 @@ function CrudExample(props) {
 				onRow={rec => {
 					return {
 						onClick: () => showItem(rec.id)
-					}
+					};
 				}}
 			></Table>
 			<Modal
@@ -113,7 +113,7 @@ function CrudExample(props) {
 							disabled={!isUserAdmin}
 							onChange={v =>
 								setItemRecord(prevState => {
-									return { ...prevState, name: v.target.value }
+									return { ...prevState, name: v.target.value };
 								})
 							}
 							value={itemRecord.name}
@@ -124,7 +124,7 @@ function CrudExample(props) {
 							disabled={!isUserAdmin}
 							onChange={v =>
 								setItemRecord(prevState => {
-									return { ...prevState, description: v.target.value }
+									return { ...prevState, description: v.target.value };
 								})
 							}
 							value={itemRecord.description}
@@ -133,8 +133,8 @@ function CrudExample(props) {
 				</Form>
 			</Modal>
 		</>
-	)
+	);
 }
 
-export default CrudExample
+export default CrudExample;
 
