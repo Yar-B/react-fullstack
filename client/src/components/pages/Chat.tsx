@@ -19,6 +19,8 @@ function Sofa(props: any) {
 	const chatWrapper = useRef<null | any>(null);
 	const messagesEndRef = useRef<null | any>(null);
 
+	console.log(loading, isStartState);
+
 	function post() {
 		setChatMsgs([
 			...chatMsgs,

@@ -22,14 +22,14 @@ const columns = [
 	}
 ];
 
-function CrudExample(props) {
+function CrudExample(props: any) {
 	const isUserAdmin = props.currentUserInfo.role === 'admin';
 
 	const [items, setItems] = useState([]);
 	const [modalVisible, setModalVisible] = useState(false);
-	const [itemRecord, setItemRecord] = useState({});
+	const [itemRecord, setItemRecord] = useState<any>({});
 
-	function showItem(recId) {
+	function showItem(recId?: number) {
 		recId
 			? apiService.get('/item/' + recId).then(res => {
 					setItemRecord(res);
@@ -45,7 +45,7 @@ function CrudExample(props) {
 		});
 	}
 
-	function removeItem(recId) {
+	function removeItem(recId: number) {
 		apiService.delete('/item/' + recId).then(() => {
 			close();
 			fetchData();
@@ -80,7 +80,7 @@ function CrudExample(props) {
 				dataSource={items}
 				columns={columns}
 				rowKey='id'
-				onRow={rec => {
+				onRow={(rec: any) => {
 					return {
 						onClick: () => showItem(rec.id)
 					};
@@ -112,7 +112,7 @@ function CrudExample(props) {
 						<Input
 							disabled={!isUserAdmin}
 							onChange={v =>
-								setItemRecord(prevState => {
+								setItemRecord((prevState: any) => {
 									return { ...prevState, name: v.target.value };
 								})
 							}
@@ -123,7 +123,7 @@ function CrudExample(props) {
 						<Input
 							disabled={!isUserAdmin}
 							onChange={v =>
-								setItemRecord(prevState => {
+								setItemRecord((prevState: any) => {
 									return { ...prevState, description: v.target.value };
 								})
 							}
