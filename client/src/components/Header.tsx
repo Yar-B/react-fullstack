@@ -40,11 +40,15 @@ function Header(props: any) {
 					>
 						Простой CRUD
 					</Link>
+					<Link
+						className={'header-link' + (location.pathname === '/graphic' ? ' selected-header-link' : '')}
+						to={'/graphic'}
+					>
+						Графика
+					</Link>
 				</div>
 				<div style={{ marginRight: 10 }} className='header-right-part'>
-					<span>
-						Привет, {props.currentUserInfo.login}!{props.currentUserInfo.role === 'admin' ? ' Ты крут!😎' : ''}
-					</span>
+					<span>Логин: {props.currentUserInfo.login}</span>
 					<Button size='small' onClick={logout} type='text'>
 						Выйти
 						<LogoutOutlined />
@@ -56,4 +60,3 @@ function Header(props: any) {
 }
 
 export default Header;
-
