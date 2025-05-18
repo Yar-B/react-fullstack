@@ -38,7 +38,7 @@ function Header(props: any) {
 						className={'header-link' + (location.pathname === '/crud-example' ? ' selected-header-link' : '')}
 						to={'/crud-example'}
 					>
-						Простой CRUD
+						Таблица
 					</Link>
 					<Link
 						className={'header-link' + (location.pathname === '/graphic' ? ' selected-header-link' : '')}
