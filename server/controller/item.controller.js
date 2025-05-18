@@ -18,7 +18,7 @@ class ItemController {
 			}
 			res.json(item.rows[0])
 		} else {
-			res.send(403, 'You do not have rights to create/update items!')
+			res.send(403, 'Дианчикс, изменять можно только под админом!!!')
 		}
 	}
 	async getItems(req, res) {
@@ -37,10 +37,9 @@ class ItemController {
 			const item = await db.query(`DELETE FROM item WHERE id = ${id}`)
 			res.json({ success: true })
 		} else {
-			res.send(403, 'You do not have rights to delete items!')
+			res.send(403, 'Дианчикс, удалять можно только под админом!!!')
 		}
 	}
 }
 
 module.exports = new ItemController()
-
